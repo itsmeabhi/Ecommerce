@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .forms import ContactForm, LoginForm
+from .forms import ContactForm, LoginForm, RegisterForm
 
 
 def home_page(request):
@@ -12,8 +12,6 @@ def home_page(request):
 
 
 def contact_page(request):
-    import ipdb
-    ipdb.set_trace()
     contact_form = ContactForm(request.POST or None)
     context = {
         'content': 'Contact Page',
@@ -50,6 +48,25 @@ def login_page(request):
 
     return render(request, "auth/login.html", context)
 
+
+def register_page(request):
+    login_form = RegisterForm(request.POST or None)
+    context = {
+        'form': login_form
+    }
+    print request.user.is_authenticated()
+    if login_form.is_valid():
+        print login_form.cleaned_data
+        username = login_form.cleaned_data.get('username')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(request, username=username, password=password)  # Need to be register via User.Model()
+        if user is not None:
+            login(request, user)
+            return redirect("/login")
+        else:
+            print "Error"
+
+    return render(request, "auth/login.html", context)
 
 
 
