@@ -38,6 +38,7 @@ def login_page(request):
     }
     print request.user.is_authenticated()
     if login_form.is_valid():
+        impo
         print login_form.cleaned_data
         username = login_form.cleaned_data.get('username')
         password = login_form.cleaned_data.get('password')
