@@ -11,3 +11,6 @@ class Product(models.Model):
     description = models.TextField()
     price = models.IntegerField(null=True)
 
+    def __str__(self):
+        return self.title
+
