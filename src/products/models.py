@@ -20,11 +20,21 @@ def get_newfilename(instance, filename):
     return "products/{new_filename}/{final_filename}".format(new_filename=new_filename, final_filename=final_filename)
 
 
+class ProductManager(models.Manager):
+    def get_by_id(self, pk):
+        qs = self.get_queryset().filter(pk=pk)
+        if len(qs) == 1:
+            return qs.first()
+        return None
+
+
 class Product(models.Model):
     title = models.CharField(max_length=20)
     description = models.TextField()
     price = models.IntegerField(null=True)
-    image = models.FileField(upload_to=get_newfilename, null=True, blank=True)
+    image = models.ImageField(upload_to=get_newfilename, null=True, blank=True)
+
+    objects = ProductManager()
 
     def __str__(self):
         return self.title

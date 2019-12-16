@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.http import Http404
 from django.shortcuts import render
 from .models import Product
 
@@ -15,7 +17,10 @@ def product_list_view(request):
 
 
 def product_detail_view(request, pk=None):
-    qs = Product.objects.get(pk=pk)
+    qs = Product.objects.get_by_id(pk)
+    print(qs)
+    if qs is None:
+        raise Http404("product doesn't exist")
     context = {
         'qs': qs
     }
