@@ -22,12 +22,12 @@ from products.views import product_list_view, product_detail_view
 from .views import home_page, contact_page, about_page, login_page, register_page
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', home_page),
-    url(r'^contact/', contact_page),
-    url(r'^about/', about_page),
-    url(r'^login/', login_page),
-    url(r'^register/', register_page),
+    path('admin/', admin.site.urls),
+    path('', home_page),
+    path('contact/', contact_page),
+    path('about/', about_page),
+    path('login/', login_page),
+    path('register/', register_page),
     path('product/', product_list_view, name='list'),
     path('product/<int:pk>/', product_detail_view, name='detail'),
 ]
