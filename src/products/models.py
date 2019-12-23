@@ -3,8 +3,12 @@ from __future__ import unicode_literals
 import os
 import random
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
 
 # Create your models here.
+
 
 
 def get_extension(filename):
@@ -33,8 +37,17 @@ class Product(models.Model):
     description = models.TextField()
     price = models.IntegerField(null=True)
     image = models.ImageField(upload_to=get_newfilename, null=True, blank=True)
+    slug = models.SlugField(blank=True, null=True)
 
     objects = ProductManager()
 
+    def get_url(self):
+        return "{slug}".format(slug=self.slug)
+
     def __str__(self):
         return self.title
+
+
+@receiver(pre_save, sender=Product)
+def my_callback(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.title)

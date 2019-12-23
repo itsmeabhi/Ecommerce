@@ -8,6 +8,8 @@
 {{qs.title}}<br>
 {{qs.description}}<br>
 {{qs.price}}<br>
-<img src="{{qs.image.url}}"/>
+{% if qs.image.url %}
+    <img src="{{qs.image.url}}"/>
+{% endif %}
 </body>
 </html>

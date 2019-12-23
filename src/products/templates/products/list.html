@@ -7,7 +7,7 @@
 <body>
 
 {% for obj in qs %}
-{{obj.title}}
+<a href="{{ obj.get_url }}">{{obj.title}}</a></br>
 {% endfor %}
 
 
