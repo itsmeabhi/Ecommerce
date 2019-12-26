@@ -6,9 +6,13 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 # Create your models here.
 
+'''
+Below two functions are used to store the imaged with the random file name in the media storage. 
+'''
 
 
 def get_extension(filename):
@@ -24,6 +28,11 @@ def get_newfilename(instance, filename):
     return "products/{new_filename}/{final_filename}".format(new_filename=new_filename, final_filename=final_filename)
 
 
+'''
+Custom manager for for relative simple query functions core object query :)
+'''
+
+
 class ProductManager(models.Manager):
     def get_by_id(self, pk):
         qs = self.get_queryset().filter(pk=pk)
@@ -32,7 +41,7 @@ class ProductManager(models.Manager):
         return None
 
 
-class Product(models.Model):
+class Product(models.Model):  # PRODUCT MODEL
     title = models.CharField(max_length=20)
     description = models.TextField()
     price = models.IntegerField(null=True)
@@ -42,12 +51,15 @@ class Product(models.Model):
     objects = ProductManager()
 
     def get_url(self):
-        return "{slug}".format(slug=self.slug)
+        return reverse("products:detail", kwargs={"slug": self.slug})  # Used for reverse URL as products/{slug} is hardcoded.
 
     def __str__(self):
         return self.title
 
 
+'''
+As soon as Model load and we are adding the product model object we need to slugify that object so pre-save method is used.
+'''
 @receiver(pre_save, sender=Product)
 def my_callback(sender, instance, *args, **kwargs):
     instance.slug = slugify(instance.title)

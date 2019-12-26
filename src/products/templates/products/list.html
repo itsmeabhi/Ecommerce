@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Products</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-{% for obj in qs %}
-<a href="{{ obj.get_url }}">{{obj.title}}</a></br>
+{% block content %}
+<div class="container">
+    <div class="row">
+{% for obj in object_list %}
+    <div class="col">
+        {% include 'products/snippets/card.html' with instance=obj %}
+    </div>
+
 {% endfor %}
-
-
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}

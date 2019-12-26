@@ -11,7 +11,7 @@ from .models import Product
 def product_list_view(request):
     qs = Product.objects.all()
     context = {
-        'qs': qs
+        'object_list': qs
     }
     return render(request, "products/list.html", context)
 

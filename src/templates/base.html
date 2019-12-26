@@ -1,0 +1,20 @@
+<!--This is Base.html used as a base template-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Base Template</title>
+    <!--Including base css from base/css.html-->
+      {% include 'base/css.html' %}
+  </head>
+  <body>
+  {% include 'base/navbar.html' with brand_name='eCommerce' %}
+        {% block content %}
+        {% endblock %}
+    <!--  Including base js from base/js.html-->
+  {% include 'base/js.html' %}
+  </body>
+</html>

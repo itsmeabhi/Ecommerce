@@ -22,12 +22,12 @@ from .views import home_page, contact_page, about_page, login_page, register_pag
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page),
-    path('contact/', contact_page),
+    path('', home_page, name='home'),
+    path('contact/', contact_page, name='contact'),
     path('about/', about_page),
     path('login/', login_page),
     path('register/', register_page),
-    path('product/', include("products.urls"), name='list')
+    path('product/', include("products.urls", namespace='products'))
 ]
 
 if settings.DEBUG:
