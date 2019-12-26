@@ -27,7 +27,8 @@ urlpatterns = [
     path('about/', about_page),
     path('login/', login_page),
     path('register/', register_page),
-    path('product/', include("products.urls", namespace='products'))
+    path('product/', include("products.urls", namespace='products')),
+    path('search/', include("search.urls", namespace='search'))
 ]
 
 if settings.DEBUG:
