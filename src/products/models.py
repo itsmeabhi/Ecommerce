@@ -55,8 +55,9 @@ class Product(models.Model):  # PRODUCT MODEL
 
     objects = ProductManager()
 
+    # Used for reverse URL as products/{slug} is hardcoded.
     def get_url(self):
-        return reverse("products:detail", kwargs={"slug": self.slug})  # Used for reverse URL as products/{slug} is hardcoded.
+        return reverse("products:detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title
