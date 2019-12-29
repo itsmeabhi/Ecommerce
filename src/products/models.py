@@ -7,6 +7,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your models here.
 
@@ -39,6 +40,10 @@ class ProductManager(models.Manager):
         if len(qs) == 1:
             return qs.first()
         return None
+
+    def search(self, query):
+        return self.get_queryset().filter(Q(title__icontains=query)
+                                          | Q(description__icontains=query)).distinct()
 
 
 class Product(models.Model):  # PRODUCT MODEL
