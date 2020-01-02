@@ -1,2 +1,2 @@
 # Ecommerce
-Ecommerce web application
+Ecommerce web application Using Django Framework.
