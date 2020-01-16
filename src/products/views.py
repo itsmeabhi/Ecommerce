@@ -9,6 +9,8 @@ from .models import Product
 
 
 def product_list_view(request):
+    # cart_id = request.session.get("cart_id", None)
+    # # print(cart_id)
     qs = Product.objects.all()
     context = {
         'object_list': qs

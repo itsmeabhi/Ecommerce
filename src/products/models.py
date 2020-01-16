@@ -42,8 +42,6 @@ class ProductManager(models.Manager):
         return None
 
     def search(self, query):
-        import pdb
-        pdb.set_trace()
         return self.get_queryset().filter(Q(title__icontains=query)
                                           | Q(description__icontains=query)
                                           | Q(tag__title__icontains=query)).distinct()
